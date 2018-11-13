@@ -36,19 +36,21 @@ class TreeNode(object):
 
 class Solution(object):
     def mergeTrees(self, t1, t2):
-        """
-        :type t1: TreeNode
-        :type t2: TreeNode
-        :rtype: TreeNode
-        """
-        if not t1:
+        # 如果t1和t2都为None,则为None
+        if t1 is None and t2 is None:
+            return None
+        # 如果t1为None，但是t2不为None，以t2为准
+        elif t1 is None and t2 is not None:
             return t2
-        if not t2:
+        # 如果t2为None，但是t1不为None，以t1为准
+        elif t2 is None and t1 is not None:
             return t1
-        t1.val += t2.val
-        t1.left = self.mergeTrees(t1.left, t2.left)
-        t1.right = self.mergeTrees(t1.right, t2.right)
-        return t1
+        # 两者都不空,t1、t2相加更新t1
+        else:
+            t1.val += t2.val
+            t1.left = self.mergeTrees(t1.left, t2.left)
+            t1.right = self.mergeTrees(t1.right, t2.right)
+            return t1
 
 
 class Solution2(object):
