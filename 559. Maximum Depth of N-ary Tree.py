@@ -1,0 +1,54 @@
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val, children=[]):
+        self.val = val
+        self.children = children
+
+
+# class Solution(object):
+#     def maxDepth(self, root):
+#         """
+#         :type root: Node
+#         :rtype: int
+#         """
+#         import sys
+#         if root is None:
+#             return 0
+#         if root.children == []:
+#             return 1
+#         max_depth = -sys.maxint
+#         for children in root.children:
+#             depth = 1 + self.maxDepth(children)
+#             max_depth = max(max_depth, depth)
+#         return max_depth
+
+class Solution(object):
+    def maxDepth(self, root):
+        """
+        :type root: Node
+        :rtype: int
+        """
+        if root is None:
+            return 0
+        stack = []
+        stack.append((1, root))
+        max_depth = 1
+        while stack:
+            depth, current_node = stack.pop()
+            max_depth = max(depth, max_depth)
+            for children in current_node.children:
+                stack.append((depth + 1, children))
+        return max_depth
+
+
+if __name__ == '__main__':
+    node1 = Node(1)
+    node2 = Node(3)
+    node3 = Node(2)
+    node4 = Node(4)
+    node5 = Node(5)
+    node6 = Node(6)
+
+    node1.children = [node2, node3, node4]
+    node2.children = [node5, node6]
+    print Solution().maxDepth(node1)
