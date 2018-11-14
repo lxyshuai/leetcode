@@ -28,22 +28,33 @@ class Node(object):
         self.children = children
 
 
-# class Solution(object):
-#     def maxDepth(self, root):
-#         """
-#         :type root: Node
-#         :rtype: int
-#         """
-#         import sys
-#         if root is None:
-#             return 0
-#         if root.children == []:
-#             return 1
-#         max_depth = -sys.maxint
-#         for children in root.children:
-#             depth = 1 + self.maxDepth(children)
-#             max_depth = max(max_depth, depth)
-#         return max_depth
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val, children):
+        self.val = val
+        self.children = children
+"""
+
+
+class Solution(object):
+    def maxDepth(self, root):
+        """
+        :type root: Node
+        :rtype: int
+        """
+        import sys
+        if root is None:
+            return 0
+        # basecase
+        if root.children == []:
+            return 1
+        max_depth = -sys.maxint
+        for children in root.children:
+            depth = 1 + self.maxDepth(children)
+            max_depth = max(depth, max_depth)
+        return max_depth
+
 
 class Solution(object):
     def maxDepth(self, root):
@@ -58,7 +69,7 @@ class Solution(object):
         max_depth = 1
         while stack:
             depth, current_node = stack.pop()
-            max_depth = max(depth, max_depth)
+            max_depth = max(max_depth, depth)
             for children in current_node.children:
                 stack.append((depth + 1, children))
         return max_depth

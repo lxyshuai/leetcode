@@ -34,16 +34,17 @@ class Solution(object):
         """
 
         def get_leaf_value_sequence(root, sequence):
-            if not root.left and not root.right:
+            # basecase
+            if root.left is None and root.right is None:
                 sequence.append(root.val)
+
             if root.left:
                 get_leaf_value_sequence(root.left, sequence)
             if root.right:
                 get_leaf_value_sequence(root.right, sequence)
-            return sequence
 
         sequence1 = []
-        sequence1 = get_leaf_value_sequence(root1, sequence1)
+        get_leaf_value_sequence(root1, sequence1)
         sequence2 = []
-        sequence2 = get_leaf_value_sequence(root2, sequence2)
+        get_leaf_value_sequence(root2, sequence2)
         return sequence1 == sequence2

@@ -53,19 +53,26 @@ class Solution(object):
         :type R: int
         :rtype: TreeNode
         """
+        # basecase1
         if root is None:
-            return
+            return None
+        # root节点符合要求
         if L <= root.val <= R:
-            root.left = self.trimBST(root.left, L, R)
-            root.right = self.trimBST(root.right, L, R)
-            return root
-        if root.val < L:
-            return self.trimBST(root.right, L, R)
+            if root.left:
+                # 对root的左子树进行剪枝
+                root.left = self.trimBST(root.left, L, R)
+            if root.right:
+                # 对root的右子树进行剪枝
+                root.right = self.trimBST(root.right, L, R)
+        # root过大，不符合要求,选取左子节点为root
         if root.val > R:
             return self.trimBST(root.left, L, R)
+        # root过大，不符合要求,选取右子节点为root
+        if root.val < L:
+            return self.trimBST(root.right, L, R)
+        return root
 
 
-# coding=utf-8
 class Solution(object):
     def trimBST(self, root, L, R):
         """
@@ -74,44 +81,43 @@ class Solution(object):
         :type R: int
         :rtype: TreeNode
         """
-        # 首先找到正确的根节点
         if root is None:
-            return
+            return root
+
+        # 选取正确的根节点
         while root.val < L or root.val > R:
             if root is None:
                 return
-            # 如果root节点的值小于L，正确的根节点在root的右子树上
-            if root.val < L:
+            elif root.val < L:
                 root = root.right
-            # 如果root节点的值大于R，正确的根节点在root的
-            if root.val > R:
+            elif root.val > R:
                 root = root.left
 
-        # 对root节点进行L<关于整枝,由于前面选出来的root已经符合要求，所有从root.left开始整枝
-        parent = root
+        # 对正确的根节点的左子树进行剪枝
         left = root.left
+        parent = root
         while left:
-            if left.val < L:
-                parent.left = left.right
-                left = left.right
+            if left.val > L:
+                parent = left
+                left = left.left
             elif left.val == L:
                 left.left = None
                 break
-            elif left.val > L:
-                parent = left
-                left = left.left
+            elif left.val < L:
+                parent.left = left.right
+                left = left.right
 
+        # 对正确的根节点的右子树进行剪枝
         right = root.right
         parent = root
-        # 对root节点进行>R关于整枝,由于前面选出来的root已经符合要求，所有从root.right开始整枝
         while right:
-            if right.val > R:
-                parent.right = right.left
-                right = right.left
+            if right.val < R:
+                parent = right
+                right = right.right
             elif right.val == R:
                 right.right = None
                 break
-            elif right.val < R:
-                parent = right
-                right = right.right
+            elif right.val > R:
+                parent.right = right.left
+                right = right.left
         return root

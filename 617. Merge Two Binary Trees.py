@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Given two binary trees and imagine that when you put one of them to cover the other, some nodes of the two trees are overlapped while the others are not.
 
@@ -28,6 +29,12 @@ from collections import deque
 
 # Definition for a binary tree node.
 class TreeNode(object):
+    """
+    :type t1: TreeNode
+    :type t2: TreeNode
+    :rtype: TreeNode
+    """
+
     def __init__(self, x):
         self.val = x
         self.left = None
@@ -36,6 +43,11 @@ class TreeNode(object):
 
 class Solution(object):
     def mergeTrees(self, t1, t2):
+        """
+        :type t1: TreeNode
+        :type t2: TreeNode
+        :rtype: TreeNode
+        """
         # 如果t1和t2都为None,则为None
         if t1 is None and t2 is None:
             return None
@@ -53,25 +65,47 @@ class Solution(object):
             return t1
 
 
-class Solution2(object):
+class Solution(object):
     def mergeTrees(self, t1, t2):
-        if not t1:
+        """
+        :type t1: TreeNode
+        :type t2: TreeNode
+        :rtype: TreeNode
+        """
+        if t1 is None:
             return t2
-        node_pair_stack = deque()
-        node_pair_stack.append([t1, t2])
-        while node_pair_stack:
-            node_pair = node_pair_stack.pop()
-            if node_pair[1] is None:
-                continue
-            node_pair[0].val += node_pair[1].val
+        if t2 is None:
+            return t1
+        stack = deque()
+        stack.append((t1, t2))
+        while stack:
+            t1_current_node, t2_current_node = stack.pop()
+            if t1_current_node and t2_current_node:
+                t1_current_node.val += t2_current_node.val
 
-            if node_pair[0].left is None:
-                node_pair[0].left = node_pair[1].left
+            # 如果t1_current_node和t2_current_node有左节点，将t1_current_node.left和t2_current_node.left加入等待处理
+            if t1_current_node.left and t2_current_node.left:
+                stack.append((t1_current_node.left, t2_current_node.left))
+            # 如果t1_current_node没有左节点，t2_current_node有左节点，t1_current_node.left以t2_current_node.left为准
+            elif t1_current_node.left is None and t2_current_node.left:
+                t1_current_node.left = t2_current_node.left
+            # 如果t1_current_node有左节点，t2_current_node没有左节点，t1_current_node.left以t1_current_node.left为准
+            elif t1_current_node.left and t2_current_node.left is None:
+                t1_current_node.left = t1_current_node.left
+            # 如果t1_current_node和t2_current_node都没有左节点，t1_current_node.left为None
             else:
-                node_pair_stack.append([node_pair[0].left, node_pair[1].left])
+                t1_current_node.left = None
 
-            if node_pair[0].right is None:
-                node_pair[0].right = node_pair[1].right
+            # 如果t1_current_node和t2_current_node有右节点，将t1_current_node.right和t2_current_node.right加入等待处理
+            if t1_current_node.right and t2_current_node.right:
+                stack.append((t1_current_node.right, t2_current_node.right))
+            # 如果t1_current_node没有右节点，t2_current_node有右节点，t1_current_node.right以t2_current_node.right为准
+            elif t1_current_node.right is None and t2_current_node.right:
+                t1_current_node.right = t2_current_node.right
+            # 如果t1_current_node有右节点，t2_current_node没有右节点，t1_current_node.right以t1_current_node.right为准
+            elif t1_current_node.right and t2_current_node.right is None:
+                t1_current_node.right = t1_current_node.right
+            # 如果t1_current_node和t2_current_node都没有左节点，t1_current_node.right为None
             else:
-                node_pair_stack.append([node_pair[0].right, node_pair[1].right])
+                t1_current_node.right = None
         return t1

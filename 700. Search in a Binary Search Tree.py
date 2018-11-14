@@ -38,7 +38,7 @@ class Solution(object):
         :rtype: TreeNode
         """
         if root is None:
-            return None
+            return
 
         if root.val == val:
             return root
@@ -46,3 +46,20 @@ class Solution(object):
             return self.searchBST(root.left, val)
         elif root.val < val:
             return self.searchBST(root.right, val)
+
+
+class Solution(object):
+    def searchBST(self, root, val):
+        """
+        :type root: TreeNode
+        :type val: int
+        :rtype: TreeNode
+        """
+        middle = root
+        while middle:
+            if middle.val == val:
+                return middle
+            if middle.val > val:
+                middle = middle.left
+            elif middle.val < val:
+                middle = middle.right

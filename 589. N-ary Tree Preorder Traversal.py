@@ -18,10 +18,10 @@ Note:
 Recursive solution is trivial, could you do it iteratively?
 """
 
-# Definition for a Node.
+
 import collections
 
-
+# Definition for a Node.
 class Node(object):
     def __init__(self, val, children):
         self.val = val
@@ -46,8 +46,7 @@ class Solution(object):
         process(root)
         return result
 
-
-class Solution2(object):
+class Solution(object):
     def preorder(self, root):
         """
         :type root: Node
@@ -56,7 +55,7 @@ class Solution2(object):
         if root is None:
             return []
         result = []
-        stack = collections.deque()
+        stack = []
         stack.append(root)
         while stack:
             current_node = stack.pop()
