@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 You need to construct a string consists of parenthesis and integers from a binary tree with the preorder traversing way.
 
