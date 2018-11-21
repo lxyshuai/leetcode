@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Given two non-empty binary trees s and t, check whether tree t has exactly the same structure and node values with a subtree of s. A subtree of s is a tree consists of a node in s and all of this node's descendants. The tree s could also be considered as a subtree of itself.
 
@@ -67,6 +68,39 @@ class Solution(object):
                 result = self.isSubtree(s.left, t)
             # 此处包含两种情况，第一种是根节点不同的情况，第二种是根节点相同接下来的does_tree1_have_tree2比较不同的情况。
             # 在下面的右子树还存在相同的可能，所以要继续遍历
+            if not result:
+                result = self.isSubtree(s.right, t)
+        return result
+
+
+class Solution(object):
+    def isSubtree(self, s, t):
+        """
+        :type s: TreeNode
+        :type t: TreeNode
+        :rtype: bool
+        """
+
+        def does_tree1_have_tree2(tree1, tree2):
+            if all((tree1, tree2)):
+                if tree1.val == tree2.val:
+                    return does_tree1_have_tree2(tree1.left, tree2.left) and does_tree1_have_tree2(tree1.right,
+                                                                                                   tree2.right)
+                else:
+                    return False
+            else:
+                if not any((tree1, tree2)):
+                    return True
+                else:
+                    return False
+
+        result = False
+        if s and t:
+            if not result:
+                if s.val == t.val:
+                    result = does_tree1_have_tree2(s, t)
+            if not result:
+                result = self.isSubtree(s.left, t)
             if not result:
                 result = self.isSubtree(s.right, t)
         return result

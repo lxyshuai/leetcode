@@ -60,6 +60,29 @@ class Solution(object):
         return self.count == 0
 
 
+class Solution(object):
+    def __init__(self):
+        self.count = 0
+
+    def isBalanced(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+
+        def process(root):
+            if root is None:
+                return 0
+            left_depth = process(root.left)
+            right_depth = process(root.right)
+            if abs(right_depth - left_depth) > 1:
+                self.count += 1
+            return max(left_depth, right_depth) + 1
+
+        process(root)
+        return self.count == 0
+
+
 if __name__ == '__main__':
     # node1 = TreeNode(1)
     # node2 = TreeNode(2)

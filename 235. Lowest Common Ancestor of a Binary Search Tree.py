@@ -59,3 +59,32 @@ class Solution(object):
         left = self.lowestCommonAncestor(root.left, p, q)
         right = self.lowestCommonAncestor(root.right, p, q)
         return left if left else right
+
+
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+
+        def process(root, p, q):
+            if root is None:
+                return
+            # 如果遍历到p和q之间的一个，直接返回
+            if root.val == p.val or root.val == q.val:
+                return root
+            # 根据BST的性质我们可以得知，从根节点往下找到第一个值位于p,q之间的节点就是LCA
+            if p.val < root.val < q.val:
+                return root
+            if root.val > q.val:
+                return process(root.left, p, q)
+            if root.val < p.val:
+                return process(root.right, p, q)
+
+        if p.val < q.val:
+            return process(root, p, q)
+        else:
+            return process(root, q, p)

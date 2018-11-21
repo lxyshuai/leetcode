@@ -61,6 +61,33 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[str]
         """
+
+        def process(root, path_list):
+            if not any((root.left, root.right)):
+                path_list.append(str(root.val))
+                self.result.append('->'.join(path_list))
+                path_list.pop(-1)
+            else:
+                path_list.append(str(root.val))
+                if root.left:
+                    process(root.left, path_list)
+                if root.right:
+                    process(root.right, path_list)
+                path_list.pop(-1)
+
+        if root is None:
+            return []
+        self.result = []
+        process(root, [])
+        return self.result
+
+
+class Solution(object):
+    def binaryTreePaths(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[str]
+        """
         if root is None:
             return []
         # 记录当前节点在层数

@@ -68,3 +68,53 @@ class Solution(object):
             q.append(q_current_node.right)
             q.append(q_current_node.left)
         return True
+
+
+class Solution(object):
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+
+        def is_mirror(root1, root2):
+            if all((root1, root2)):
+                if root1.val == root2.val:
+                    return is_mirror(root1.left, root2.right) and is_mirror(root1.right, root2.left)
+                else:
+                    return False
+            else:
+                if not any((root1, root2)):
+                    return True
+                else:
+                    return False
+
+        return is_mirror(root, root)
+
+
+class Solution(object):
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if root is None:
+            return True
+        p = [root]
+        q = [root]
+        while p and q:
+            p_current_node = p.pop()
+            q_current_node = q.pop()
+            if all((p_current_node, q_current_node)):
+                if p_current_node.val != q_current_node.val:
+                    return False
+            else:
+                if not any((p_current_node, q_current_node)):
+                    continue
+                else:
+                    return False
+            p.append(p_current_node.left)
+            p.append(p_current_node.right)
+            q.append(q_current_node.right)
+            q.append(q_current_node.left)
+        return True

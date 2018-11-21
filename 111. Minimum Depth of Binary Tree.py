@@ -44,3 +44,25 @@ class Solution(object):
             if child:
                 min_depth = min(self.minDepth(child), min_depth)
         return min_depth + 1
+
+
+class Solution(object):
+    def __init__(self):
+        self.min_depth = float('inf')
+        self.depth = 1
+
+    def minDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if root is None:
+            return 0
+        if not any((root.left, root.right)):
+            self.min_depth = min(self.min_depth, self.depth)
+        else:
+            self.depth += 1
+            self.minDepth(root.left)
+            self.minDepth(root.right)
+            self.depth -= 1
+        return self.min_depth

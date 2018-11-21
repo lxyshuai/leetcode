@@ -62,3 +62,31 @@ class Solution(object):
         elif t.left is None and t.right:
             string += '(' + ')' + '(' + self.tree2str(t.right) + ')'
         return string
+
+
+class Solution(object):
+    def tree2str(self, t):
+        """
+        :type t: TreeNode
+        :rtype: str
+        """
+        if t is None:
+            return ''
+        result = ''
+        stack = [t]
+        visited_set = set()
+        while stack:
+            current_node = stack[-1]
+            if current_node in visited_set:
+                stack.pop()
+                result += ')'
+            else:
+                visited_set.add(current_node)
+                result += '(' + str(current_node.val)
+                if current_node.left is None and current_node.right:
+                    result += "()"
+                if current_node.right:
+                    stack.append(current_node.right)
+                if current_node.left:
+                    stack.append(current_node.left)
+        return result[1:-1]

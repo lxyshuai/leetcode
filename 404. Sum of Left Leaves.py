@@ -43,3 +43,28 @@ class Solution(object):
             process(root.left, root)
             process(root.right, root)
         return self.left_sum
+
+
+class Solution(object):
+    def __init__(self):
+        self.left_sum = 0
+
+    def sumOfLeftLeaves(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+
+        def process(root, parent):
+            if root is None:
+                return
+            if not any((root.left, root.right)) and parent.left == root:
+                self.left_sum += root.val
+            else:
+                process(root.left, root)
+                process(root.right, root)
+
+        if root:
+            process(root.left, root)
+            process(root.right, root)
+        return self.left_sum

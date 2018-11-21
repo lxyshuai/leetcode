@@ -46,3 +46,27 @@ class Solution(object):
             return process(root.left, before_sum + root.val) or process(root.right, before_sum + root.val)
 
         return process(root, 0)
+
+
+class Solution(object):
+    def __init__(self):
+        self.count = 0
+        self.before_sum = 0
+
+    def hasPathSum(self, root, sum):
+        """
+        :type root: TreeNode
+        :type sum: int
+        :rtype: bool
+        """
+        if root is None:
+            return False
+        if not any((root.left, root.right)):
+            if self.before_sum + root.val == sum:
+                self.count += 1
+        else:
+            self.before_sum += root.val
+            self.hasPathSum(root.left, sum)
+            self.hasPathSum(root.right, sum)
+            self.before_sum -= root.val
+        return self.count >= 1

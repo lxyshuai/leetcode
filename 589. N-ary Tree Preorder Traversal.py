@@ -19,8 +19,6 @@ Recursive solution is trivial, could you do it iteratively?
 """
 
 
-import collections
-
 # Definition for a Node.
 class Node(object):
     def __init__(self, val, children):
@@ -45,6 +43,7 @@ class Solution(object):
 
         process(root)
         return result
+
 
 class Solution(object):
     def preorder(self, root):

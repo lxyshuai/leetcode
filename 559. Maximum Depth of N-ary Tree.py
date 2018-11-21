@@ -28,13 +28,11 @@ class Node(object):
         self.children = children
 
 
-"""
 # Definition for a Node.
 class Node(object):
     def __init__(self, val, children):
         self.val = val
         self.children = children
-"""
 
 
 class Solution(object):
@@ -43,17 +41,14 @@ class Solution(object):
         :type root: Node
         :rtype: int
         """
-        import sys
         if root is None:
             return 0
-        # basecase
         if root.children == []:
             return 1
-        max_depth = -sys.maxint
-        for children in root.children:
-            depth = 1 + self.maxDepth(children)
-            max_depth = max(depth, max_depth)
-        return max_depth
+        max_depth = -float('inf')
+        for child in root.children:
+            max_depth = max(max_depth, self.maxDepth(child))
+        return max_depth + 1
 
 
 class Solution(object):

@@ -18,13 +18,12 @@ We should return its level order traversal:
 ]
 """
 
-"""
+
 # Definition for a Node.
 class Node(object):
     def __init__(self, val, children):
         self.val = val
         self.children = children
-"""
 
 
 class Solution(object):
@@ -52,4 +51,25 @@ class Solution(object):
                 level_list = []
                 this_level_count = next_level_count
                 next_level_count = 0
+        return result
+
+
+class Solution(object):
+    def levelOrder(self, root):
+        """
+        :type root: Node
+        :rtype: List[List[int]]
+        """
+        if root is None:
+            return []
+        queue = [root]
+        temp_queue = []
+        result = []
+        while queue:
+            result.append([node.val for node in queue])
+            while queue:
+                current_node = queue.pop(0)
+                for child in current_node.children:
+                    temp_queue.append(child)
+            queue, temp_queue = temp_queue, queue
         return result

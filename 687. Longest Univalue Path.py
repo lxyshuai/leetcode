@@ -33,11 +33,12 @@ Note: The given binary tree has not more than 10000 nodes. The height of the tre
 
 
 # Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
 
 class Solution(object):
     def longestUnivaluePath(self, root):
@@ -63,3 +64,56 @@ class Solution(object):
         self.ans = 0
         process(root)
         return self.ans
+
+
+class Solution(object):
+    def __init__(self):
+        self.longest_path = 0
+
+    def longestUnivaluePath(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+
+        def process(node):
+            if node is None:
+                return 0
+            left_path = process(node.left)
+            right_path = process(node.right)
+
+            if node.left and node.val == node.left.val:
+                left_path += 1
+            else:
+                left_path = 0
+            if node.right and node.val == node.right.val:
+                right_path += 1
+            else:
+                right_path = 0
+
+            if all((node.left, node.right)) and node.val == node.left.val == node.right.val:
+                self.longest_path = max(left_path + right_path, self.longest_path)
+            elif node.left and node.val == node.left.val:
+                self.longest_path = max(left_path, self.longest_path)
+            elif node.right and node.val == node.right.val:
+                self.longest_path = max(right_path, self.longest_path)
+            return max(left_path, right_path)
+
+        process(root)
+        return self.longest_path
+
+
+if __name__ == '__main__':
+    node1 = TreeNode(5)
+    node2 = TreeNode(4)
+    node3 = TreeNode(5)
+    node4 = TreeNode(1)
+    node5 = TreeNode(1)
+    node6 = TreeNode(5)
+
+    node1.left = node2
+    node1.right = node3
+    node2.left = node4
+    node2.right = node5
+    node3.left = node6
+    print Solution().longestUnivaluePath(node1)

@@ -76,3 +76,25 @@ class Solution(object):
             next_level_count = 0
             result.insert(0, level_result)
         return result
+
+
+class Solution(object):
+    def levelOrderBottom(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        if root is None:
+            return []
+        stack = [(root, 0)]
+        result = []
+        while stack:
+            current_node, level = stack.pop()
+            if len(result) - 1 < level:
+                result.append([])
+            result[level].append(current_node.val)
+            if current_node.right:
+                stack.append((current_node.right, level + 1))
+            if current_node.left:
+                stack.append((current_node.left, level + 1))
+        return result[::-1]

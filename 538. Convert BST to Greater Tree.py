@@ -61,3 +61,26 @@ class Solution(object):
             current_node.val = total
             current_node = current_node.left
         return root
+
+
+class Solution(object):
+    def convertBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        if root is None:
+            return
+        before_sum = 0
+        stack = []
+        current_node = root
+        while stack or current_node:
+            if current_node:
+                stack.append(current_node)
+                current_node = current_node.right
+            else:
+                current_node = stack.pop()
+                current_node.val += before_sum
+                before_sum = current_node.val
+                current_node = current_node.left
+        return root

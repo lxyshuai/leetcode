@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Given a non-empty special binary tree consisting of nodes with the non-negative value, where each node in this tree has exactly two or zero sub-node. If the node has two sub-nodes, then this node's value is the smaller value among its two sub-nodes.
 
@@ -52,3 +53,25 @@ class Solution(object):
 
         process(root)
         return result[0] if result[0] != float('inf') else -1
+
+
+class Solution(object):
+    def findSecondMinimumValue(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+
+        # 根据该二叉树的性质，可以得知二叉树的root为整个树的min
+        # 所有球第二小的数，只需要找到比root大比其他节点小的节点
+        def process(node):
+            if node is None:
+                return
+            if root.val < node.val < self.second_min:
+                self.second_min = node.val
+            process(node.left)
+            process(node.right)
+
+        self.second_min = float('inf')
+        process(root)
+        return self.second_min if self.second_min != float('inf') else -1

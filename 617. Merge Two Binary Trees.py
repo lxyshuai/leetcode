@@ -109,3 +109,38 @@ class Solution(object):
             else:
                 t1_current_node.right = None
         return t1
+
+
+class Solution(object):
+    def mergeTrees(self, t1, t2):
+        """
+        :type t1: TreeNode
+        :type t2: TreeNode
+        :rtype: TreeNode
+        """
+        if t1 is None:
+            return t2
+        if t2 is None:
+            return t1
+        stack = [(t1, t2)]
+        while stack:
+            t1_current_node, t2_current_node = stack.pop()
+            if all([t1_current_node, t2_current_node]):
+                t1_current_node.val += t2_current_node.val
+
+            children = (t1_current_node.left, t2_current_node.left)
+            if all(children):
+                stack.append(children)
+            else:
+                for child in children:
+                    if child:
+                        t1_current_node.left = child
+
+            children = (t1_current_node.right, t2_current_node.right)
+            if all(children):
+                stack.append(children)
+            else:
+                for child in children:
+                    if child:
+                        t1_current_node.right = child
+        return t1

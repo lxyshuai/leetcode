@@ -89,3 +89,70 @@ class Solution(object):
                 last_node = current_node
                 current_node = current_node.right
         return head.right
+
+
+class Solution(object):
+    def increasingBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+
+        def process(root):
+            if root is None:
+                return
+            process(root.left)
+            self.parent.right = root
+            root.left = None
+            self.parent = root
+            process(root.right)
+
+        self.parent = TreeNode(-1)
+        new_root = self.parent
+        process(root)
+        return new_root.right
+
+
+class Solution(object):
+    def increasingBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+
+        def process(root):
+            if root is None:
+                return
+            process(root.left)
+            self.parent.right = root
+            root.left = None
+            self.parent = root
+            process(root.right)
+
+        self.parent = TreeNode(-1)
+        new_root = self.parent
+        process(root)
+        return new_root.right
+
+
+if __name__ == '__main__':
+    node1 = TreeNode(5)
+    node2 = TreeNode(3)
+    node3 = TreeNode(6)
+    node4 = TreeNode(2)
+    node5 = TreeNode(4)
+    node6 = TreeNode(8)
+    node7 = TreeNode(1)
+    node8 = TreeNode(7)
+    node9 = TreeNode(9)
+
+    node1.left = node2
+    node1.right = node3
+    node2.left = node4
+    node2.right = node5
+    node3.right = node6
+    node4.left = node7
+    node6.left = node8
+    node6.right = node9
+
+    Solution().increasingBST(node1)

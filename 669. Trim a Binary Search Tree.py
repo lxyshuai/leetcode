@@ -56,13 +56,9 @@ class Solution(object):
         # basecase1
         if root is None:
             return None
-        # root节点符合要求
+        # 如果root符合要求，则继续对root.left,root.right进行调整
         if L <= root.val <= R:
-            if root.left:
-                # 对root的左子树进行剪枝
                 root.left = self.trimBST(root.left, L, R)
-            if root.right:
-                # 对root的右子树进行剪枝
                 root.right = self.trimBST(root.right, L, R)
         # root过大，不符合要求,选取左子节点为root
         if root.val > R:

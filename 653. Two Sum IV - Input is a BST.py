@@ -41,6 +41,27 @@ class Solution(object):
         :type k: int
         :rtype: bool
         """
+        number_set = set()
+
+        def find(root, target):
+            if root is None:
+                return False
+            if target - root.val in number_set:
+                return True
+            else:
+                number_set.add(root.val)
+                return find(root.left, target) or find(root.right, target)
+
+        return find(root, k)
+
+
+class Solution(object):
+    def findTarget(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: bool
+        """
 
         def find(root, target, number_set):
             if root is None:

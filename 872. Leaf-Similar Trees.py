@@ -48,3 +48,27 @@ class Solution(object):
         sequence2 = []
         get_leaf_value_sequence(root2, sequence2)
         return sequence1 == sequence2
+
+
+class Solution(object):
+    def leafSimilar(self, root1, root2):
+        """
+        :type root1: TreeNode
+        :type root2: TreeNode
+        :rtype: bool
+        """
+
+        def get_leaf_value_sequence(root, sequence):
+            if root is None:
+                return
+            if not any((root.left, root.right)):
+                sequence.append(root.val)
+            get_leaf_value_sequence(root.left, sequence)
+            get_leaf_value_sequence(root.right, sequence)
+            return sequence
+
+        sequence1 = []
+        get_leaf_value_sequence(root1, sequence1)
+        sequence2 = []
+        get_leaf_value_sequence(root2, sequence2)
+        return sequence1 == sequence2

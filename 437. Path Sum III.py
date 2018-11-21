@@ -67,3 +67,27 @@ class Solution(object):
         part_sums = collections.Counter([0])
         find_sum(root, 0)
         return self.count
+
+
+class Solution(object):
+    def __init__(self):
+        self.count = 0
+        self.part_sums = collections.Counter([0])
+        self.total_sum = 0
+
+    def pathSum(self, root, sum):
+        """
+        :type root: TreeNode
+        :type sum: int
+        :rtype: int
+        """
+        if root is None:
+            return 0
+        self.total_sum += root.val
+        self.count += self.part_sums[self.total_sum - sum]
+        self.part_sums[self.total_sum] += 1
+        self.pathSum(root.left, sum)
+        self.pathSum(root.right, sum)
+        self.part_sums[self.total_sum] -= 1
+        self.total_sum -= root.val
+        return self.count
