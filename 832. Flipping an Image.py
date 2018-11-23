@@ -23,6 +23,7 @@ Notes:
 0 <= A[i][j] <= 1
 """
 
+
 class Solution1(object):
     def flipAndInvertImage(self, A):
         """
@@ -40,6 +41,7 @@ class Solution1(object):
                     row[index] = 0
         return A
 
+
 class Solution2(object):
     def flipAndInvertImage(self, A):
         """
@@ -53,6 +55,22 @@ class Solution2(object):
             for column in range(columns):
                 A[row][column] ^= 1
         return A
+
+
+class Solution(object):
+    def flipAndInvertImage(self, A):
+        """
+        :type A: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        rows = len(A)
+        columns = len(A[0]) if rows else 0
+        for row in range(rows):
+            A[row].reverse()
+            for column in range(columns):
+                A[row][column] ^= 1
+        return A
+
 
 if __name__ == '__main__':
     print Solution2().flipAndInvertImage([[1, 1, 0], [1, 0, 1], [0, 0, 0]])

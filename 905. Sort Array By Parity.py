@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Given an array A of non-negative integers, return an array consisting of all the even elements of A, followed by all the odd elements of A.
 
@@ -42,6 +43,7 @@ class Solution2(object):
         :type A: List[int]
         :rtype: List[int]
         """
+        # 遍历一次数组将所有偶数放前面，用index记录不是偶数数组的下一个数
         index = 0
         for i in range(len(A)):
             if A[i] & 1 == 0:

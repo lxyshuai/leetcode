@@ -40,5 +40,22 @@ class Solution(object):
 
         return result
 
+
+class Solution(object):
+    def transpose(self, A):
+        """
+        :type A: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        rows = len(A)
+        columns = len(A[0])
+        result_matrix = [[0 for _ in range(rows)] for _ in range(columns)]
+
+        for row in range(rows):
+            for column in range(columns):
+                result_matrix[column][row] = A[row][column]
+        return result_matrix
+
+
 if __name__ == '__main__':
-    print Solution().transpose([[1,2,3],[4,5,6],[7,8,9]])
+    print Solution().transpose([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
