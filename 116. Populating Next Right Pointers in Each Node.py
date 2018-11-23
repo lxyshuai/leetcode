@@ -46,6 +46,7 @@ class TreeLinkNode:
 import collections
 
 
+import collections
 class Solution:
     # @param root, a tree link node
     # @return nothing
@@ -68,7 +69,6 @@ class Solution:
             queue, temp_queue = temp_queue, queue
         return
 
-
 class Solution:
     # @param root, a tree link node
     # @return nothing
@@ -78,5 +78,5 @@ class Solution:
             root.left.next = root.right
             if root.next:
                 root.right.next = root.next.left
-            self.connect(root.left)
             self.connect(root.right)
+            self.connect(root.left)
