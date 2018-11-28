@@ -75,4 +75,41 @@ class Solution(object):
                     left += 1
         return result
 
-print Solution().threeSum2([-1,0,1,2,-1,-4])
+
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        result = []
+        for index, number in enumerate(nums):
+            if index > 0 and number == nums[index - 1]:
+                continue
+            target = 0 - number
+
+            left = index + 1
+            right = len(nums) - 1
+            while left < right:
+                two_sum = nums[left] + nums[right]
+                if two_sum == target:
+                    result.append([number, nums[left], nums[right]])
+                    left += 1
+                    right -= 1
+                    while left < right and nums[left] == nums[left - 1]:
+                        left += 1
+                    while left < right and nums[right] == nums[right + 1]:
+                        right -= 1
+                elif two_sum > target:
+                    right -= 1
+                    while left < right and nums[right] == nums[right + 1]:
+                        right -= 1
+                elif two_sum < target:
+                    left += 1
+                    while left < right and nums[left] == nums[left - 1]:
+                        left += 1
+        return result
+
+
+print Solution().threeSum2([-1, 0, 1, 2, -1, -4])
