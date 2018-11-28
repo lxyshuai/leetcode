@@ -97,17 +97,17 @@ class Solution(object):
                     result.append([number, nums[left], nums[right]])
                     left += 1
                     right -= 1
-                    while left < right and nums[left] == nums[left - 1]:
+                    while 0 < left < len(nums) and nums[left] == nums[left - 1]:
                         left += 1
-                    while left < right and nums[right] == nums[right + 1]:
+                    while len(nums) - 1 > right >= 0 and nums[right] == nums[right + 1]:
                         right -= 1
                 elif two_sum > target:
                     right -= 1
-                    while left < right and nums[right] == nums[right + 1]:
+                    while len(nums) - 1 > right >= 0 and nums[right] == nums[right + 1]:
                         right -= 1
                 elif two_sum < target:
                     left += 1
-                    while left < right and nums[left] == nums[left - 1]:
+                    while 0 < left < len(nums) and nums[left] == nums[left - 1]:
                         left += 1
         return result
 
