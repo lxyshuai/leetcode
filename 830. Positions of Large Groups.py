@@ -45,3 +45,26 @@ class Solution(object):
                 first = second + 1
             second += 1
         return result
+
+
+class Solution(object):
+    def largeGroupPositions(self, S):
+        """
+        :type S: str
+        :rtype: List[List[int]]
+        """
+        result = []
+        start_group_index = 0
+        for current_index in range(len(S)):
+            if current_index == len(S) - 1:
+                if current_index - start_group_index + 1 >= 3:
+                    result.append([start_group_index, current_index])
+            elif S[current_index] != S[current_index + 1]:
+                if current_index - start_group_index + 1 >= 3:
+                    result.append([start_group_index, current_index])
+                start_group_index = current_index + 1
+        return result
+
+
+if __name__ == '__main__':
+    print Solution().largeGroupPositions("abbxxxxzzy")

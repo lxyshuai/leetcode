@@ -31,5 +31,28 @@ class Solution(object):
             return max1
 
 
+class Solution(object):
+    def thirdMax(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        max1, max2, max3 = float('-inf'), float('-inf'), float('-inf')
+        for number in nums:
+            if number > max1:
+                max3 = max2
+                max2 = max1
+                max1 = number
+            elif max1 > number > max2:
+                max3 = max2
+                max2 = number
+            elif max2 > number > max3:
+                max3 = number
+        if max3 != float('-inf'):
+            return max3
+        else:
+            return max1
+
+
 if __name__ == '__main__':
     print Solution().thirdMax([3, 2, 1])

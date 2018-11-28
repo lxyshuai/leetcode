@@ -20,13 +20,37 @@ Note:
 1 <= len(bits) <= 1000.
 bits[i] is always 0 or 1.
 """
+
+
 class Solution(object):
     def isOneBitCharacter(self, bits):
         """
         :type bits: List[int]
         :rtype: bool
         """
-        i = 0
-        while i < len(bits) - 1:
-             i += bits[i] + 1
-        return i == len(bits) - 1
+        if bits == [0]:
+            return True
+        elif bits == []:
+            return False
+        else:
+            if bits[:2] == [1, 1]:
+                return self.isOneBitCharacter(bits[2:])
+            elif bits[:2] == [1, 0]:
+                return self.isOneBitCharacter(bits[2:])
+            elif bits[0] == 0:
+                return self.isOneBitCharacter(bits[1:])
+
+
+class Solution(object):
+    def isOneBitCharacter(self, bits):
+        """
+        :type bits: List[int]
+        :rtype: bool
+        """
+        index = 0
+        while index < len(bits) - 1:
+            if bits[index] == 1:
+                index += 2
+            elif bits[index] == 0:
+                index += 1
+        return index == len(bits) - 1

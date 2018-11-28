@@ -104,5 +104,58 @@ class Solution4(object):
             end -= 1
 
 
+# 3 Using Cyclic Replacements
+class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        k %= len(nums)
+        count = 0
+        start_index = 0
+        while count != len(nums):
+            current_index = start_index
+            current_number = nums[current_index]
+            next_index = (current_index + k) % len(nums)
+            next_number = nums[next_index]
+            nums[next_index] = current_number
+            current_index = next_index
+            current_number = next_number
+            count += 1
+            while current_index != start_index:
+                next_index = (current_index + k) % len(nums)
+                next_number = nums[next_index]
+                nums[next_index] = current_number
+                current_index = next_index
+                current_number = next_number
+                count += 1
+            start_index += 1
+
+
+# 4 Using Reverse
+class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+
+        def reverse(nums, begin, end):
+            left = begin
+            right = end
+            while left <= right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+
+        k %= len(nums)
+        reverse(nums, 0, len(nums) - 1)
+        reverse(nums, 0, k - 1)
+        reverse(nums, k, len(nums) - 1)
+
+
 if __name__ == '__main__':
-    print Solution3().rotate([1, 2, 3, 4, 5, 6], 2)
+    print Solution().rotate([1, 2, 3, 4, 5, 6], 2)

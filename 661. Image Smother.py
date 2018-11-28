@@ -43,5 +43,31 @@ class Solution(object):
         return result
 
 
+class Solution(object):
+    def imageSmoother(self, M):
+        """
+        :type M: List[List[int]]
+        :rtype: List[List[int]]
+        """
+
+        def get_average(matrix, row, column, rows, columns):
+            count = 0
+            total_sum = 0
+            for _row in (row - 1, row, row + 1):
+                for _column in (column - 1, column, column + 1):
+                    if 0 <= _row < rows and 0 <= _column < columns:
+                        total_sum += matrix[_row][_column]
+                        count += 1
+            return total_sum / count
+
+        rows = len(M)
+        columns = len(M[0]) if rows else 0
+        result = [[0 for _ in range(columns)] for _ in range(rows)]
+        for row in range(rows):
+            for column in range(columns):
+                result[row][column] = get_average(M, row, column, rows, columns)
+        return result
+
+
 if __name__ == '__main__':
     print Solution().imageSmoother([[1, 1, 1], [1, 0, 1], [1, 1, 1]])

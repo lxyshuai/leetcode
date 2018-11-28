@@ -28,7 +28,7 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        if k < 0 or len(nums)==0:
+        if k < 0 or len(nums) == 0:
             return 0
         count = 0
         count_dict = {}
@@ -44,5 +44,29 @@ class Solution(object):
         return count
 
 
+class Solution(object):
+    def findPairs(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        if k < 0 or len(nums) == 0:
+            return 0
+        count = 0
+        import collections
+        counter = collections.Counter()
+        for number in nums:
+            counter[number] += 1
+        for number in counter.keys():
+            if k == 0:
+                if counter[number] >= 2:
+                    count += 1
+            else:
+                if counter[number + k] > 0:
+                    count += 1
+        return count
+
+
 if __name__ == '__main__':
-    print Solution().findPairs([3, 1, 4, 1, 5],0)
+    print Solution().findPairs([1, 2, 3, 4, 5], - 1)

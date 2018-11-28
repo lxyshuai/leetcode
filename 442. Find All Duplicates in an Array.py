@@ -29,3 +29,20 @@ class Solution(object):
             else:
                 nums[real_number - 1] *= -1
         return result
+
+
+class Solution(object):
+    def findDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        result = []
+        for number in nums:
+            real_number = abs(number)
+            if nums[real_number - 1] < 0:
+                result.append(real_number)
+            else:
+                nums[real_number - 1] = -1 * nums[real_number - 1]
+        return result
+

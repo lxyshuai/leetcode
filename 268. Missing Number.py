@@ -20,7 +20,44 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        nums.sort()
+        for index, number in enumerate(nums):
+            if index != number:
+                return index
+        return index + 1
+
+
+class Solution(object):
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums_set = set(nums)
+        n = len(nums) + 1
+        for number in range(n):
+            if number not in nums_set:
+                return number
+
+
+class Solution(object):
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
         missing = len(nums)
-        for i, num in enumerate(nums):
-            missing ^= i ^ num
+        for index, number in enumerate(nums):
+            missing ^= index ^ number
         return missing
+
+
+class Solution(object):
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        expected_sum = len(nums) * (len(nums) + 1) / 2
+        actual_sum = sum(nums)
+        return expected_sum - actual_sum

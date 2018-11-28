@@ -34,3 +34,22 @@ class Solution(object):
             if count > max_count:
                 max_count = count
         return max_count
+
+
+class Solution(object):
+    def findMaxConsecutiveOnes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        max_count = 0
+        count = 0
+        index = 0
+        while index < len(nums):
+            if nums[index] == 1:
+                count += 1
+            else:
+                max_count = max(count, max_count)
+                count = 0
+            index += 1
+        return max(count, max_count)

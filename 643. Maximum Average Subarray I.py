@@ -18,7 +18,6 @@ class Solution(object):
         :type k: int
         :rtype: float
         """
-        max_k_sum = 0
         k_sum = sum(nums[0:k])
         max_k_sum = k_sum
         for index in range(0, len(nums) - k):

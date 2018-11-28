@@ -20,37 +20,98 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        result = len(nums)
-        # 遍历所有子数组,i是子数组的左边界,j是子数组的右边界
-        for i in range(0, len(nums), 1):
-            for j in range(i, len(nums), 1):
-                min_value = min(nums[i:j + 1])
-                max_value = max(nums[i:j + 1])
-                # 左边数组应该是有序的,且最大值应该小于需排序数组的最小值
-                # 右边数组应该是有序的,且最小值应该大于需排序数组的最大值
-                if (i > 0 and nums[i - 1] > min_value) or (
-                        j + 1 < len(nums) and nums[j + 1] < max_value):
-                    continue
-                k = 0
-                while k < i:
-                    if nums[k] > nums[k + 1]:
-                        break
-                    else:
-                        k += 1
-                if k != i:
-                    continue
-                k = j
-                while k < len(nums) - 1:
-                    if nums[k] > nums[k + 1]:
-                        break
-                    else:
-                        k += 1
-                if k == len(nums) - 1:
-                    if i == j:
-                        result = 0
-                    else:
-                        result = min(result, j - i + 1)
-        return result
+        nums_sorted = sorted(nums)
+        if nums_sorted == nums:
+            return 0
+        index = 0
+        left = 0
+        while index < len(nums):
+            if nums[index] != nums_sorted[index]:
+                left = index
+                break
+            index += 1
+        index = len(nums) - 1
+        right = len(nums) - 1
+        while index >= 0:
+            if nums[index] != nums_sorted[index]:
+                right = index
+                break
+            index -= 1
+        if right > left:
+            return right - left + 1
+
+
+class Solution(object):
+    def findUnsortedSubarray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums_sorted = sorted(nums)
+        left = len(nums)
+        right = 0
+        for index in range(len(nums)):
+            if nums[index] != nums_sorted[index]:
+                left = min(left, index)
+                right = max(right, index)
+        return right - left + 1 if right - left >= 0 else 0
+
+
+class Solution(object):
+    def findUnsortedSubarray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        stack = []
+        left = len(nums)
+        right = 0
+
+        for index in range(len(nums)):
+            while stack and nums[stack[-1]] > nums[index]:
+                left = min(left, stack.pop())
+            stack.append(index)
+
+        stack = []
+        for index in range(len(nums) - 1, -1, -1):
+            while stack and nums[stack[-1]] < nums[index]:
+                right = max(right, stack.pop())
+            stack.append(index)
+        return right - left + 1 if right - left >= 0 else 0
+
+
+class Solution(object):
+    def findUnsortedSubarray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        min_value = float('inf')
+        max_value = float('-inf')
+        flag = False
+        for index in range(1, len(nums)):
+            if nums[index] < nums[index - 1]:
+                flag = True
+            if flag:
+                min_value = min(min_value, nums[index])
+        flag = False
+        for index in range(len(nums) - 2, -1, -1):
+            if nums[index] > nums[index + 1]:
+                flag = True
+            if flag:
+                max_value = max(max_value, nums[index])
+
+        left = 0
+        right = len(nums) - 1
+        while left < len(nums):
+            if min_value < nums[left]:
+                break
+            left += 1
+        while right >= 0:
+            if max_value > nums[right]:
+                break
+            right -= 1
+        return right - left + 1 if right - left >= 0 else 0
 
 
 if __name__ == '__main__':

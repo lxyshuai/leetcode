@@ -33,3 +33,28 @@ class Solution(object):
         if all(m >= 2 * x for x in nums if x != m):
             return nums.index(m)
         return -1
+
+
+class Solution(object):
+    def dominantIndex(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        max1 = float('-inf')
+        max1_index = None
+        max2 = float('-inf')
+        max2_index = None
+
+        for index, number in enumerate(nums):
+            if number >= max1:
+                max2 = max1
+                max1 = number
+                max1_index = index
+            elif max1 > number >= max2:
+                max2 = number
+                max2_index = index
+        if max2 * 2 <= max1:
+            return max1_index
+        else:
+            return -1

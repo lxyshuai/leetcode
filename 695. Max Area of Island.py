@@ -23,48 +23,39 @@ Note: The length of each dimension in the given grid does not exceed 50.
 """
 
 
+import collections
 class Solution(object):
     def maxAreaOfIsland(self, grid):
         """
         :type grid: List[List[int]]
         :rtype: int
         """
-        max_area = 0
+        def visit(row, column):
+            area = 0
+            queue = collections.deque([(row, column)])
+            has_visited[row][column] = True
+            while queue:
+                current_row, current_column = queue.popleft()
+                area += 1
+                for next_row, next_column in ((current_row - 1, current_column),
+                                              (current_row + 1, current_column),
+                                              (current_row, current_column + 1),
+                                              (current_row, current_column - 1)):
+                    if rows > next_row >= 0 and columns > next_column >= 0 and grid[next_row][next_column] == 1 and has_visited[next_row][next_column] is False:
+                        queue.append((next_row, next_column))
+                        has_visited[next_row][next_column] = True
+            return area
         rows = len(grid)
         columns = len(grid[0]) if rows else 0
         has_visited = [[False for _ in range(columns)] for _ in range(rows)]
+        max_area = 0
         for row in range(rows):
             for column in range(columns):
-                # 如果该点访问过,跳过
-                if has_visited[row][column]:
+                if has_visited[row][column] == True:
                     continue
                 if grid[row][column] == 1:
-                    area = self.visit(grid, has_visited, rows, columns, row,
-                                      column)
-                    max_area = max(max_area, area)
+                    max_area = max(max_area, visit(row, column))
         return max_area
-
-    def visit(self, grid, has_visited, rows, columns, row, column):
-        # bfs
-        visited = set()
-        queue = list()
-        visited.add((row, column))
-        queue.append((row, column))
-        has_visited[row][column] = True
-        area = 0
-        while queue:
-            current_row, current_column = queue.pop(0)
-            area += 1
-            for next_row, next_column in ((current_row - 1, current_column),
-                                          (current_row + 1, current_column),
-                                          (current_row, current_column + 1),
-                                          (current_row, current_column - 1)):
-                if 0 <= next_row < rows and 0 <= next_column < columns and \
-                        grid[next_row][next_column] == 1 and \
-                        has_visited[next_row][next_column] == False:
-                    has_visited[next_row][next_column] = True
-                    queue.append((next_row, next_column))
-        return area
 
 
 if __name__ == '__main__':

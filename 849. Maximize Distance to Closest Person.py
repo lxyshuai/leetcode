@@ -27,20 +27,74 @@ Note:
 1 <= seats.length <= 20000
 seats contains only 0s or 1s, at least one 0, and at least one 1.
 """
+
+
 class Solution(object):
     def maxDistToClosest(self, seats):
         """
         :type seats: List[int]
         :rtype: int
         """
-        first = 0
-        last = 0
-        max_count = 0
-        while last != len(seats):
-            if seats[last] == 1:
-                first = last
-                last += 1
+        N = len(seats)
+        left, right = [N] * N, [N] * N
+
+        for i in range(N):
+            if seats[i] == 1:
+                left[i] = 0
+            elif i > 0:
+                left[i] = left[i - 1] + 1
+
+        for i in range(N - 1, -1, -1):
+            if seats[i] == 1:
+                right[i] = 0
+            elif i < N - 1:
+                right[i] = right[i + 1] + 1
+        return max(min(left[i], right[i]) for i, seat in enumerate(seats) if seats != 1)
+
+
+class Solution(object):
+    def maxDistToClosest(self, seats):
+        """
+        :type seats: List[int]
+        :rtype: int
+        """
+        result = 0
+
+        people = (index for index, seat in enumerate(seats) if seat == 1)
+        left_index, right_index = None, next(people)
+
+        for index, seat in enumerate(seats):
+            if seat == 1:
+                left_index = index
             else:
-                max_count = max(last - first, max_count)
-                last += 1
-        return max((max_count + 1) / 2, seats.index(1), seats[::-1].index(1))
+                while right_index is not None and index > right_index:
+                    right_index = next(people, None)
+
+                left_distance = float('inf') if left_index is None else index - left_index
+                right_distance = float('inf') if right_index is None else right_index - index
+                result = max(result, min(left_distance, right_distance))
+        return result
+
+
+class Solution(object):
+    def maxDistToClosest(self, seats):
+        """
+        :type seats: List[int]
+        :rtype: int
+        """
+        max_zero_group_count = 0
+        result = 0
+        zero_group_start_index = None
+        current_index = 0
+        while current_index < len(seats):
+            if seats[current_index] == 1:
+                zero_group_start_index = current_index
+            else:
+                if zero_group_start_index is not None:
+                    max_zero_group_count = max(max_zero_group_count, current_index - zero_group_start_index)
+            current_index += 1
+        return max((max_zero_group_count + 1) / 2, seats.index(1), seats[::-1].index(1))
+
+
+if __name__ == '__main__':
+    print Solution().maxDistToClosest([1, 0, 0, 0, 1, 0, 1])

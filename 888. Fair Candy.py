@@ -62,3 +62,20 @@ class Solution(object):
                 current_A += 1
 
         return []
+
+
+class Solution(object):
+    def fairCandySwap(self, A, B):
+        """
+        :type A: List[int]
+        :type B: List[int]
+        :rtype: List[int]
+        """
+        # A_sum - x + y = B_sum - y + x
+        # y = x + (B_sum - A_sum) / 2
+        A_sum = sum(A)
+        B_sum = sum(B)
+        B_set = set(B)
+        for x in A:
+            if x + (B_sum - A_sum) / 2 in B_set:
+                return [x, x + (B_sum - A_sum) / 2]

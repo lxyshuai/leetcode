@@ -18,7 +18,7 @@ class Solution(object):
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
         """
-        last_zero= 0
+        last_zero = 0
         current = 0
         length = len(nums)
         while last_zero != length and current != length:
@@ -28,5 +28,21 @@ class Solution(object):
             current += 1
         return nums
 
+
+class Solution(object):
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        none_zero_index = 0
+        current_index = 0
+        while current_index < len(nums):
+            if nums[current_index] != 0:
+                nums[current_index], nums[none_zero_index] = nums[none_zero_index], nums[current_index]
+                none_zero_index += 1
+            current_index += 1
+
+
 if __name__ == '__main__':
-    print Solution().moveZeroes([0,1,0,3,12])
+    print Solution().moveZeroes([0, 1, 0, 3, 12])

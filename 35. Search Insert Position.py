@@ -47,3 +47,21 @@ class Solution(object):
             return left + 1
         else:
             return left
+
+
+class Solution(object):
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        current_index = 0
+        while current_index < len(nums):
+            if nums[current_index] == target:
+                return current_index
+            elif nums[current_index] > target:
+                return current_index
+            else:
+                current_index += 1
+        return current_index

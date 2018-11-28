@@ -38,3 +38,18 @@ class Solution(object):
                 return index
             left_sum += number
         return -1
+
+
+class Solution(object):
+    def pivotIndex(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        total_sum = sum(nums)
+        left_sum = 0
+        for index, number in enumerate(nums):
+            if left_sum == total_sum - left_sum - number:
+                return index
+            left_sum += number
+        return - 1

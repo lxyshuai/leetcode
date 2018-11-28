@@ -75,5 +75,22 @@ class Solution(object):
         return last
 
 
+class Solution(object):
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        index = 0
+        current_index = 0
+        while current_index < len(nums):
+            if nums[current_index] != val:
+                nums[index], nums[current_index] = nums[current_index], nums[index]
+                index += 1
+            current_index += 1
+        return index
+
+
 if __name__ == '__main__':
-    print Solution().removeElement([1],1)
+    print Solution().removeElement([1], 1)

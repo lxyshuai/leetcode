@@ -44,3 +44,31 @@ class Solution(object):
                 ans = min(ans, right[key] - left[key] + 1)
 
         return ans
+
+
+import collections
+
+
+class Solution(object):
+    def findShortestSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        left_index, right_index = {}, {}
+        count = collections.Counter([])
+        for index, number in enumerate(nums):
+            if number not in left_index:
+                left_index[number] = index
+            right_index[number] = index
+            count[number] += 1
+
+        result = len(nums)
+        degree = count.most_common()[0][1]
+        for number in count:
+            if count[number] == degree:
+                result = min(result, right_index[number] - left_index[number] + 1)
+        return result
+
+if __name__ == '__main__':
+    print Solution().findShortestSubArray([1])

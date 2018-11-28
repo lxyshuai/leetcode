@@ -35,6 +35,7 @@ for (int i = 0; i < len; i++) {
 }
 """
 
+
 class Solution(object):
     def removeDuplicates(self, nums):
         """
@@ -53,3 +54,25 @@ class Solution(object):
                 nums[slow] = nums[fast]
                 fast += 1
         return slow + 1
+
+
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if nums == []:
+            return 0
+        replace_index = 0
+        current_index = 1
+        while current_index < len(nums):
+            if nums[current_index] != nums[replace_index]:
+                replace_index += 1
+                nums[replace_index] = nums[current_index]
+            current_index += 1
+        return replace_index + 1
+
+
+if __name__ == '__main__':
+    print Solution().removeDuplicates([-3, -1])

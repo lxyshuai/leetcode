@@ -55,3 +55,17 @@ class Solution(object):
                 count[number] = 1
         from fractions import gcd
         return reduce(gcd, count.values()) >= 2
+
+
+class Solution(object):
+    def hasGroupsSizeX(self, deck):
+        """
+        :type deck: List[int]
+        :rtype: bool
+        """
+        import collections
+        counter = collections.Counter()
+        for number in deck:
+            counter[number] += 1
+        from fractions import gcd
+        return reduce(gcd, counter.values()) >= 2

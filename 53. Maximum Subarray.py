@@ -11,8 +11,9 @@ Follow up:
 If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
 """
 
-
 import sys
+
+
 class Solution(object):
     def maxSubArray(self, nums):
         """
@@ -33,4 +34,25 @@ class Solution(object):
                 sum = 0
             else:
                 last += 1
+        return max_sum
+
+
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        subarray_start_index = 0
+        current_index = 0
+        total_sum = 0
+        max_sum = float('-inf')
+
+        while current_index < len(nums):
+            total_sum += nums[current_index]
+            max_sum = max(total_sum, max_sum)
+            if total_sum < 0:
+                subarray_start_index = current_index + 1
+                total_sum = 0
+            current_index += 1
         return max_sum

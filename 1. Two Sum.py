@@ -58,15 +58,30 @@ class Solution(object):
         :rtype: List[int]
         """
         nums_map = {}
-        for index,num1 in enumerate(nums):
+        for index, num1 in enumerate(nums):
             num2 = target - num1
             if num2 in nums_map:
-                result =[index, nums_map[num2]]
+                result = [index, nums_map[num2]]
                 result.sort()
                 return result
             else:
                 nums_map[num1] = index
 
 
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        part_dict = {}
+        for index, number in enumerate(nums):
+            part = target - nums[index]
+            if part in part_dict:
+                return [part_dict[part], index]
+            part_dict[number] = index
+        return
 
-print Solution().twoSum2([2,1],3)
+
+print Solution().twoSum2([2, 1], 3)

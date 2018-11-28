@@ -60,6 +60,27 @@ class Solution(object):
         return result
 
 
+class Solution(object):
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        digits[-1] += 1
+        current_index = len(digits) - 1
+        while current_index >= 0:
+            if digits[current_index] == 10:
+                digits[current_index] = 0
+                if current_index == 0:
+                    digits.insert(0, 1)
+                else:
+                    digits[current_index - 1] += 1
+                current_index -= 1
+            else:
+                break
+        return digits
+
+
 if __name__ == '__main__':
     print Solution().matrixReshape([[1, 2],
                                     [3, 4]], 4, 1)

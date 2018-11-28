@@ -23,14 +23,11 @@ class Solution(object):
         :type cost: List[int]
         :rtype: int
         """
-        return min(self.process(cost, 0), self.process(cost, 1))
-
-    def process(self, cost, begin):
-        if begin == len(cost) - 1 or begin == len(cost) - 2:
-            return cost[begin]
-        return cost[begin] + min(self.process(cost, begin + 1),
-                                 self.process(cost, begin + 2))
-
+        def process(cost, index):
+            if index == len(cost) - 1 or index == len(cost) - 2:
+                return cost[index]
+            return min(cost[index] + process(cost, index + 1), cost[index] + process(cost, index + 2))
+        return min(process(cost, 0), process(cost, 1))
 
 class Solution(object):
     def minCostClimbingStairs(self, cost):
@@ -41,6 +38,6 @@ class Solution(object):
         dp = [0 for _ in range(len(cost))]
         dp[-1] = cost[-1]
         dp[-2] = cost[-2]
-        for index in range(3, len(cost) + 1):
-            dp[-index] = cost[-index] + min(dp[-index + 1], dp[-index + 2])
+        for index in range(len(cost) -3, -1, -1):
+            dp[index] = cost[index] + min(dp[index + 1], dp[index + 2])
         return min(dp[0], dp[1])

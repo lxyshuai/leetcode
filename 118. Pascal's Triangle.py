@@ -33,3 +33,20 @@ class Solution(object):
                 row[num] = result[number - 1][num] + result[number - 1][num - 1]
             result.append(row)
         return result
+
+
+class Solution(object):
+    def generate(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        result = []
+        for row_index in range(numRows):
+            row = [0 for _ in range(row_index + 1)]
+            row[0] = 1
+            row[-1] = 1
+            for index in range(1, row_index):
+                row[index] = result[row_index - 1][index - 1] + result[row_index - 1][index]
+            result.append(row)
+        return result
