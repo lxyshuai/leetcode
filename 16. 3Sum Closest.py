@@ -44,3 +44,47 @@ class Solution(object):
                     while left < right and nums[left] == nums[left - 1]:
                         left += 1
         return result
+
+
+class Solution(object):
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        nums.sort()
+        closest_diff = float('inf')
+        result = float('inf')
+        for index, number in enumerate(nums):
+            if index > 0 and nums[index - 1] == number:
+                continue
+
+            left_index = index + 1
+            right_index = len(nums) - 1
+
+            while left_index < right_index:
+                total_sum = number + nums[left_index] + nums[right_index]
+                if total_sum == target:
+                    return target
+                elif total_sum < target:
+                    left_index += 1
+                    diff = abs(total_sum - target)
+                    if diff < closest_diff:
+                        closest_diff = diff
+                        result = total_sum
+                    while len(nums) > left_index > 0 and nums[left_index] == nums[left_index - 1]:
+                        left_index += 1
+                elif total_sum > target:
+                    right_index -= 1
+                    diff = abs(total_sum - target)
+                    if diff < closest_diff:
+                        closest_diff = diff
+                        result = total_sum
+                    while len(nums) - 1 > right_index >= 0 and nums[right_index] == nums[right_index + 1]:
+                        right_index -= 1
+        return result
+
+
+if __name__ == '__main__':
+    print Solution().threeSumClosest([1, 1, 1, 0], -100)
