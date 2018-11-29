@@ -57,3 +57,75 @@ class Solution(object):
                     else:
                         left += 1
         return result
+
+
+class Solution(object):
+    def fourSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        result = []
+        for first in range(0, len(nums) - 3):
+            if first > 0 and nums[first] == nums[first - 1]:
+                continue
+            for second in range(first + 1, len(nums) - 2):
+                left = second + 1
+                right = len(nums) - 1
+                while left < right:
+                    total_sum = nums[first] + nums[second] + nums[left] + nums[right]
+                    if total_sum == target:
+                        if [nums[first], nums[second], nums[left], nums[right]] not in result:
+                            result.append([nums[first], nums[second], nums[left], nums[right]])
+                        left += 1
+                        right -= 1
+                        while 0 <= right < len(nums) - 1 and nums[right] == nums[right + 1]:
+                            right -= 1
+                        while 0 < left <= len(nums) - 1 and nums[left] == nums[left - 1]:
+                            left += 1
+                    elif total_sum > target:
+                        right -= 1
+                        while 0 <= right < len(nums) - 1 and nums[right] == nums[right + 1]:
+                            right -= 1
+                    elif total_sum < target:
+                        left += 1
+                        while 0 < left <= len(nums) - 1 and nums[left] == nums[left - 1]:
+                            left += 1
+        return result
+
+
+class Solution(object):
+    def fourSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+
+        if len(nums) < 4:
+            return []
+
+        nums.sort()
+        rst = []
+        for i in range(len(nums) - 3):
+            for j in range(i + 1, len(nums) - 2):
+                l, r = j + 1, len(nums) - 1
+                while l < r:
+                    s = nums[i] + nums[j] + nums[l] + nums[r]
+                    if s == target:
+                        temp_rst = [nums[i], nums[j], nums[l], nums[r]]
+                        if temp_rst not in rst:
+                            rst.append(temp_rst)
+                        r -= 1
+                        l += 1
+                    elif s > target:
+                        r -= 1
+                    else:
+                        l += 1
+        return rst
+
+
+if __name__ == '__main__':
+    print Solution().fourSum([-3, -2, -1, 0, 0, 1, 2, 3], 0)
