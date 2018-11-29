@@ -51,3 +51,26 @@ class Solution(object):
             if index > 0 and price > prices[index - 1]:
                 profit += price - prices[index - 1]
         return profit
+
+
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if not prices:
+            return 0
+        index = 0
+        valley = prices[0]
+        peak = prices[0]
+        max_profit = 0
+        while index < len(prices) - 1:
+            while index < len(prices) - 1 and prices[index] >= prices[index + 1]:
+                index += 1
+            valley = prices[index]
+            while index < len(prices) - 1 and prices[index] <= prices[index + 1]:
+                index += 1
+            peak = prices[index]
+            max_profit += peak - valley
+        return max_profit
