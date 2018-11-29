@@ -38,3 +38,16 @@ class Solution(object):
             if _profit > 0:
                 profit += _profit
         return profit
+
+
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        profit = 0
+        for index, price in enumerate(prices):
+            if index > 0 and price > prices[index - 1]:
+                profit += price - prices[index - 1]
+        return profit
