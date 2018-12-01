@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Given an array nums containing n + 1 integers where each integer is between 1 and n (inclusive), prove that at least one duplicate number must exist. Assume that there is only one duplicate number, find the duplicate one.
 
@@ -42,3 +43,6 @@ class Solution(object):
             else:
                 left = middle + 1
         return left
+
+if __name__ == '__main__':
+    print Solution().findDuplicate([1,2,3,3])
