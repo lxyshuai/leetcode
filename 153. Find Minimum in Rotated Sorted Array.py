@@ -42,3 +42,26 @@ class Solution(object):
             elif nums[middle] < nums[left]:
                 right = middle
         return nums[right]
+
+
+class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) == 1:
+            return nums[0]
+        if nums[0] < nums[-1]:
+            return nums[0]
+        left = 0
+        right = len(nums) - 1
+        # 用左右逼近转折点
+        while right - left != 1:
+            middle = left + (right - left) / 2
+            # 此时nums[middle] > nums[left],说明middle做左边的递增部分
+            if nums[middle] > nums[left]:
+                left = middle
+            elif nums[middle] < nums[right]:
+                right = middle
+        return nums[right]
