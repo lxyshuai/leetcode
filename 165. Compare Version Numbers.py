@@ -92,5 +92,6 @@ class Solution(object):
                 version2_list_index += 1
         return 0
 
+
 if __name__ == '__main__':
     print Solution().compareVersion('1', '1.0.1')
