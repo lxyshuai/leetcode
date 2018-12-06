@@ -77,19 +77,18 @@ class Solution(object):
             if int(version1_list[version1_list_index]) != int(version2_list[version2_list_index]):
                 return 1 if int(version1_list[version1_list_index]) > int(version2_list[version2_list_index]) else -1
 
-        if version1_list_index != len(version1_list) - 1:
+        version1_list_index += 1
+        while version1_list_index != len(version1_list):
+            if int(version1_list[version1_list_index]) != 0:
+                return 1
             version1_list_index += 1
-            while version1_list_index != len(version1_list):
-                if int(version1_list[version1_list_index]) != 0:
-                    return 1
-                version1_list_index += 1
 
-        if version2_list_index != len(version2_list) - 1:
+        version2_list_index += 1
+        while version2_list_index != len(version2_list):
+            if int(version2_list[version2_list_index]) != 0:
+                return -1
             version2_list_index += 1
-            while version2_list_index != len(version2_list):
-                if int(version2_list[version2_list_index]) != 0:
-                    return -1
-                version2_list_index += 1
+
         return 0
 
 
