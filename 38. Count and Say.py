@@ -54,3 +54,34 @@ class Solution(object):
             temp += str(count) + result[index - 1]
             result = temp
         return result
+
+
+class Solution(object):
+    def countAndSay(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        """
+        双指针的做法
+        第一个指针指向当前联系序列的第一个数，第二个指针往后遍历，知道遇到一个不等于的数
+        """
+        if n == 0:
+            return
+        if n == 1:
+            return '1'
+
+        result = '1'
+        for _ in range(n - 1):
+            temp = ''
+            first = 0
+            second = 0
+            while second < len(result):
+                if result[second] == result[first]:
+                    second += 1
+                else:
+                    temp += str(second - first) + result[first]
+                    first = second
+            temp += str(second - first) + result[first]
+            result = temp
+        return result
