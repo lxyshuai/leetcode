@@ -107,3 +107,49 @@ class Solution(object):
                 else:
                     dp[_t][_s] += dp[_t][_s + 1]
         return dp[0][0]
+
+
+class Solution(object):
+    def numDistinct(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: int
+        """
+
+        def process(s_current_index, t_current_index):
+            if t_current_index == len(t):
+                return 1
+            if s_current_index == len(s):
+                return 0
+
+            total = 0
+            if s[s_current_index] == t[t_current_index]:
+                total += process(s_current_index + 1, t_current_index + 1)
+            total += process(s_current_index + 1, t_current_index)
+            return total
+
+        return process(0, 0)
+
+
+class Solution(object):
+    def numDistinct(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: int
+        """
+        dp = [[0 for _ in range(len(t) + 1)] for _ in range(len(s) + 1)]
+
+        dp[len(s)][len(t)] = 1
+        for _s in range(0, len(s)):
+            dp[_s][len(t)] = 1
+        for _t in range(0, len(t)):
+            dp[len(s)][_t] = 0
+
+        for _s in range(len(s) - 1, -1, -1):
+            for _t in range(len(t) - 1, -1, -1):
+                if s[_s] == t[_t]:
+                    dp[_s][_t] += dp[_s + 1][_t + 1]
+                dp[_s][_t] += dp[_s + 1][_t]
+        return dp[0][0]
