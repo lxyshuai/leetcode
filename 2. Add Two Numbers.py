@@ -18,6 +18,7 @@ class ListNode(object):
         self.val = x
         self.next = None
 
+
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
         """
