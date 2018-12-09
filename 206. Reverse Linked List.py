@@ -36,3 +36,19 @@ class Solution(object):
                 break
             next = cur.next
         return pre
+
+
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        pre = None
+        cur = head
+        while cur:
+            next = cur.next
+            cur.next = pre
+            pre = cur
+            cur = next
+        return pre
