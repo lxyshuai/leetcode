@@ -52,3 +52,20 @@ class Solution(object):
             pre = cur
             cur = next
         return pre
+
+
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head is None:
+            return None
+        if head.next is None:
+            return head
+        return_head = self.reverseList(head.next)
+        next = head.next
+        next.next = head
+        head.next = None
+        return return_head
