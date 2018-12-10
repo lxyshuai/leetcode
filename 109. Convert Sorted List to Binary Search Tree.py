@@ -83,3 +83,27 @@ class Solution(object):
             else:
                 break
         return process(head, fast)
+
+
+class Solution(object):
+    def sortedListToBST(self, head):
+        """
+        :type head: ListNode
+        :rtype: TreeNode
+        """
+        if head is None:
+            return
+        if head.next is None:
+            return TreeNode(head.val)
+
+        slow_pre = None
+        slow = fast = head
+        while fast and fast.next:
+            slow_pre = slow
+            slow = slow.next
+            fast = fast.next.next
+        root = TreeNode(slow.val)
+        slow_pre.next = None
+        root.left = self.sortedListToBST(head)
+        root.right = self.sortedListToBST(slow.next)
+        return root
