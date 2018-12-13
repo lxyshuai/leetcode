@@ -53,3 +53,5 @@
 ### 链表环
 [链接](http://www.cnblogs.com/hiddenfox/p/3408931.html)
 [链接](http://www.cnblogs.com/wuyuegb2312/p/3183214.html)
+
+### 求分部分的时候快排的partitaion
