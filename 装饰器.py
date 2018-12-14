@@ -17,19 +17,21 @@ def decorate(limit_time, count):
                     print 'fuck'
             else:
                 time_list.append(now_time)
-                func(*args, **kwargs)
+                return func(*args, **kwargs)
 
         return inner_wrapper
 
     return wrapper
 
 
-@decorate(3, 3)
+@decorate(1, 3)
 def say(something):
-    print something
+    return something
 
 
 if __name__ == '__main__':
+    a = say
+
     for _ in range(11):
         say('Done')
     time.sleep(3)
