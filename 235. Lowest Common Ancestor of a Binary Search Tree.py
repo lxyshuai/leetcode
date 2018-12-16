@@ -32,6 +32,12 @@ p and q are different and both values will exist in the BST.
 
 
 # Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
 class TreeNode(object):
     def __init__(self, x):
         self.val = x
@@ -88,3 +94,30 @@ class Solution(object):
             return process(root, p, q)
         else:
             return process(root, q, p)
+
+
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+
+        def process(root):
+            if root is None:
+                return
+            if p.val <= root.val <= q.val:
+                return root
+            else:
+                if root.val < p.val:
+                    return process(root.right)
+                elif root.val > q.val:
+                    return process(root.left)
+
+        if p.val < q.val:
+            return process(root)
+        else:
+            p, q = q, p
+            return process(root)
